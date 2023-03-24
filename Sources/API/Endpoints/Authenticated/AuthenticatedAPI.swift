@@ -59,19 +59,3 @@ public extension Github.API.Authenticated {
         try await .init(configuration: configuration, performer: NetswiftPerformer(requestPerformer: performer))
     }
 }
-
-//internal extension Github.API.Authenticated {
-//    class Performer: NetswiftPerformer {
-//        let configuration: Github.Configuration
-//
-//        init(configuration: Github.Configuration,
-//             requestPerformer: HTTPPerformer = NetswiftHTTPPerformer()) {
-//            self.configuration = configuration
-//            super.init(requestPerformer: requestPerformer)
-//        }
-//
-//        override func hook(into urlRequest: inout URLRequest) {
-//            urlRequest.addHeaders([.authorization(.basic(token: configuration.base64EncodedToken))])
-//        }
-//    }
-//}
