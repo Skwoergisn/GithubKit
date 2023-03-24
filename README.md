@@ -8,10 +8,11 @@ Start by importing `GithubKit` and configure it with your app credentials:
 ```swift
 import GithubKit
 
-Github.configure(accessGroup: <keychain identifier>,
-                 clientID: <app client id>,
-                 clientSecret: <app client secret>,
-                 redirectURL: URL(string: <app redirect url>)!)
+Github.configure(
+    clientID: <app client id>,
+    clientSecret: <app client secret>,
+    redirectURL: URL(string: <app redirect url>)!
+)
 ```
 
 ### Auth

@@ -15,10 +15,8 @@ class PersistenceManager {
     
     private static let key: String = "config"
     
-    init(accessGroup: String) {
-        let keychain: KeychainSwift = .init()
-        keychain.accessGroup = accessGroup
-        self.keychain = keychain
+    init() {
+        self.keychain = .init()
         self.jsonCoder = .init()
     }
     
@@ -29,6 +27,6 @@ class PersistenceManager {
     
     func persistConfiguration(_ config: Github.Configuration) {
         guard let data = try? jsonCoder.encode(value: config) else { return }
-        keychain.set(data, forKey: Self.key)
+        keychain.set(data, forKey: Self.key, withAccess: .accessibleWhenUnlocked)
     }
 }

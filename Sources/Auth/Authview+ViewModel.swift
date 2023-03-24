@@ -12,6 +12,7 @@ import SwiftUI
 extension GithubAuthView {
     class ViewModel: ObservableObject {
         
+        private let github: Github
         private let completion: Github.Completion
         let webView: WKWebView
         let webViewStore: WebViewStore
@@ -30,6 +31,7 @@ extension GithubAuthView {
         private let requestBuilder: Github.Configuration.RequestBuilder
         
         init(github: Github, completion: @escaping Github.Completion) {
+            self.github = github
             self.completion = completion
             let webView = WKWebView()
             self.webView = webView
@@ -69,7 +71,9 @@ extension GithubAuthView {
             isBusy = true
             Task {
                 do {
-                    completion(.success(try await requestBuilder.getOAuthToken(fromAccessCode: code)))
+                    let token = try await requestBuilder.getOAuthToken(fromAccessCode: code)
+                    github.persistenceManager.persistConfiguration(token)
+                    completion(.success(token))
                 } catch {
                     completion(.failure(error))
                 }

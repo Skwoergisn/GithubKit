@@ -15,7 +15,6 @@ public struct Github {
     static private(set) var shared: Github?
     
     public static func configure(
-        accessGroup: String,
         clientID: String,
         clientSecret: String,
         baseURL: URL = URL(string: "https://github.com/login/oauth")!,
@@ -28,7 +27,7 @@ public struct Github {
                 baseURL: baseURL,
                 redirectURL: redirectURL
             ),
-            persistenceManager: .init(accessGroup: accessGroup)
+            persistenceManager: .init()
         )
     }
 }

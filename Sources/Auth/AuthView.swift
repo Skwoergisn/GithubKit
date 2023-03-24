@@ -43,7 +43,13 @@ public extension View {
     @ViewBuilder
     func githubAuthSheet(isPresented: Binding<Bool>, _ completion: @escaping Github.Completion) -> some View {
         if let github = Github.shared {
-            self.modifier(GithubAuthView(isPresented: isPresented, github: github, completion))
+            if let config = github.persistenceManager.readConfiguration() {
+                self.onAppear {
+                        completion(.success(config))
+                    }
+            } else {
+                self.modifier(GithubAuthView(isPresented: isPresented, github: github, completion))
+            }
         } else {
             fatalError("Missing call to Github.configure(_:)\n please make sure you set up the library correctly.")
         }
