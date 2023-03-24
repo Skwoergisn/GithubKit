@@ -51,7 +51,15 @@ public extension View {
                 self.modifier(GithubAuthView(isPresented: isPresented, github: github, completion))
             }
         } else {
-            fatalError("Missing call to Github.configure(_:)\n please make sure you set up the library correctly.")
+            self.sheet(isPresented: isPresented) {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Unable to show the Github Authentication Sheet")
+                        .font(.largeTitle)
+                    Text("Missing call to `Github.configure(_:)` please make sure you set up the library correctly.")
+                        .font(.body)
+                }
+                .padding()
+            }
         }
     }
 }
@@ -79,7 +87,7 @@ struct SwiftUIView_Previews: PreviewProvider {
     
     class Model: ObservableObject {
         @Published
-        var showSheet: Bool = false
+        var showSheet: Bool = true
     }
     
     @StateObject
