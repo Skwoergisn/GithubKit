@@ -12,6 +12,10 @@ public struct Github {
     let requestBuilder: Configuration.RequestBuilder
     let persistenceManager: PersistenceManager
     
+    public static var configuration: Github.Configuration? {
+        Self.shared?.persistenceManager.readConfiguration()
+    }
+    
     static private(set) var shared: Github?
     
     public static func configure(
