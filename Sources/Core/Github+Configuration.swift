@@ -35,5 +35,21 @@ public extension Github {
             case scope = "scope"
             case tokenType = "token_type"
         }
+        
+        internal init(token: String, scope: String, tokenType: String, base64EncodedToken: String) {
+            self.token = token
+            self.scope = scope
+            self.tokenType = tokenType
+            self.base64EncodedToken = base64EncodedToken
+        }
+    }
+}
+
+public extension Github.Configuration {
+    static var mock: Self {
+        .init(token: "hello",
+              scope: "world",
+              tokenType: "token",
+              base64EncodedToken: "t0k3n")
     }
 }
